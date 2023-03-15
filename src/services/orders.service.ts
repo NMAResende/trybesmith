@@ -9,4 +9,9 @@ export default class OrderService {
 
     return orders;
   }
+
+  public async create(order: IOrders): Promise<number> {
+    const newOrder = await this.orderModel.create(order);
+    return newOrder;
+  }
 }

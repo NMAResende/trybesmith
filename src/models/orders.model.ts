@@ -1,3 +1,4 @@
+import { ResultSetHeader } from 'mysql2/promise';
 import { IOrders } from '../interfaces/orders.interface';
 import connection from './connection';
 
@@ -17,16 +18,13 @@ export default class ProductModel {
     return orders as IOrders[];
   }
 
-  // public async create(order: IOrders): Promise<IOrders> {
-  //   const { name, amount } = order;
-
-  //   const [result] = await this.connection.execute<ResultSetHeader>(
-  //     'INSERT INTO Trybesmith.products (name, amount) VALUES (?, ?)',
-  //     [name, amount],
-  //   );
-  //   const { insertId: id } = result;
-  
-  //   const newProduct: IProducts = { id, name, amount };
-  //   return newProduct;
-  // }
+  public async create(order: IOrders): Promise<number> {
+    const [{ insertId }] = await this.connection.execute<IOrders & ResultSetHeader>(
+      'INSERT INTO Trybesmith.orders (user_id) VALUES (?)',
+      [order.userId],
+    );
+    console.log(insertId);
+    
+    return insertId;
+  }
 }

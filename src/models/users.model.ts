@@ -17,14 +17,13 @@ export default class UserModel {
     return { id: insertId, username, vocation, level };
   }
 
-  public async login(login: ILogin): Promise<IUsers[]> {
-    const { username } = login;
+  public async login(login: ILogin): Promise<IUsers> {
+    const { username, password } = login;
 
-    const [rows] = await this.connection.execute<IUsers[] & RowDataPacket[]>(
-      'SELECT * FROM Trybesmith.users WHERE username = ?', 
-      [username],
+    const [[rows]] = await this.connection.execute<IUsers[] & RowDataPacket[]>(
+      'SELECT id, username FROM Trybesmith.users WHERE username = ? AND password = ?', 
+      [username, password],
     );
-    
-    return rows;
+    return rows as IUsers;
   }
 }

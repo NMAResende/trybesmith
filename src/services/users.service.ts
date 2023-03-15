@@ -12,16 +12,14 @@ export default class UserService {
   }
 
   public async login(login: ILogin) {
-    const users = await this.userModel.login(login);
-    console.log(users);
+    const user = await this.userModel.login(login);
+    // console.log(users);
     
-    if (!users) throw new HttpException(401, 'Username or password invalid');
+    if (!user) {
+      throw new HttpException(401, 'Username or password invalid');
+    }
 
-    // if (users[0].password !== login.password) {
-    //   throw new HttpException(401, 'Username or password invalid');
-    // }
-
-    const token = generateToken({ username: login.username }); 
+    const token = generateToken({ username: user.username }); 
     return token;
   }
 }

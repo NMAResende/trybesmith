@@ -5,3 +5,8 @@ export interface IUsers {
   level: number;
   password?: string;
 }
+
+export interface ILogin extends IUsers {
+  username: string;
+  password: string;
+}

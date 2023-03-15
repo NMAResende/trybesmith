@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IUsers } from '../interfaces/users.interface';
+import { ILogin, IUsers } from '../interfaces/users.interface';
 import UserService from '../services/users.service';
 import generateToken from '../utils/token';
 
@@ -11,5 +11,11 @@ export default class UserController {
     await this.userService.create(user);
     const token = generateToken(user);
     res.status(201).json({ token });
+  };
+
+  public login = async (req: Request<object, object, ILogin>, res: Response) => {
+    const { body } = req;
+    const token = await this.userService.login(body);
+    return res.status(200).json({ token });
   };
 }

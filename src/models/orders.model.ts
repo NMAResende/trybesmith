@@ -1,4 +1,3 @@
-// import { RowDataPacket } from 'mysql2/promise';
 import { IOrders } from '../interfaces/orders.interface';
 import connection from './connection';
 
@@ -17,4 +16,17 @@ export default class ProductModel {
     // referência: https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/JSON_ARRAYAGG.html#GUID-6D56077D-78DE-4CC0-9498-225DDC42E054
     return orders as IOrders[];
   }
+
+  // public async create(order: IOrders): Promise<IOrders> {
+  //   const { name, amount } = order;
+
+  //   const [result] = await this.connection.execute<ResultSetHeader>(
+  //     'INSERT INTO Trybesmith.products (name, amount) VALUES (?, ?)',
+  //     [name, amount],
+  //   );
+  //   const { insertId: id } = result;
+  
+  //   const newProduct: IProducts = { id, name, amount };
+  //   return newProduct;
+  // }
 }

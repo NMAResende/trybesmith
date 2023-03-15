@@ -9,11 +9,11 @@ export default function authMiddleware(
 ) {
   try {
     const { authorization: token } = req.headers;
-    if (!token) throw new HttpException(401, 'Token não encontrado');
+    if (!token) throw new HttpException(401, 'Token not found');
     const payload = jwt.verify(token, process.env.JWT_SECRET as string);
     req.body.user = payload;
     next();
   } catch (error) {
-    throw new HttpException(401, 'Não autorizada');
+    throw new HttpException(401, 'Invalid token');
   }
 }

@@ -9,6 +9,6 @@ const productsRouter = Router();
 const productController = new ProductsController();
 
 productsRouter.post('/', nameValidate, amountValidate, productController.create);
-productsRouter.get('/', nameValidate, amountValidate, productController.getAll);
+productsRouter.get('/', productController.getAll);
 
 export default productsRouter;

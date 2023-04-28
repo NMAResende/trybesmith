@@ -18,12 +18,11 @@ export default class ProductModel {
     return orders as IOrders[];
   }
 
-  public async create(order: IOrders): Promise<number> {
-    const [{ insertId }] = await this.connection.execute<IOrders & ResultSetHeader>(
+  public async create(userId: number) {
+    const [{ insertId }] = await this.connection.execute<ResultSetHeader>(
       'INSERT INTO Trybesmith.orders (user_id) VALUES (?)',
-      [order.userId],
+      [userId],
     );
-    console.log(insertId);
     
     return insertId;
   }
